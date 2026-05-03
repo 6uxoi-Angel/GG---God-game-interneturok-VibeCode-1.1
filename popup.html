@@ -1,0 +1,292 @@
+﻿<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>God Game</title>
+    <link rel="stylesheet" href="popup/styles/popup.css">
+</head>
+<body data-ui-mode="new">
+    <main class="wrap">
+        <button id="settingsToggle" class="settings-toggle" type="button" title="Темы" aria-label="Темы">&#9881;</button>
+
+        <section id="settingsMenu" class="settings-menu" aria-label="Настройки оформления">
+            <div class="settings-title">Оформление</div>
+            <div id="themeChoices"></div>
+
+            <div class="settings-title">Режим UI</div>
+            <div id="uiModeChoices" class="mode-grid"></div>
+
+            <div class="settings-title">Подсветка ответов</div>
+            <div class="mode-grid">
+                <button id="highlightColorThemeBtn" class="mode-choice" type="button" data-highlight-color-mode="theme">
+                    <strong>От темы</strong>
+                    <span>Цвет зависит от выбранной темы.</span>
+                </button>
+                <button id="highlightColorCustomBtn" class="mode-choice" type="button" data-highlight-color-mode="custom">
+                    <strong>Свой цвет</strong>
+                    <span>Использовать HEX или RGB.</span>
+                </button>
+            </div>
+            <input id="highlightColorInput" class="settings-color-input" type="text" placeholder="#22c55e или rgb(34, 197, 94)" autocomplete="off">
+            <div class="actions">
+                <button id="saveHighlightColorBtn" class="btn btn-primary" type="button">Сохранить цвет</button>
+                <button id="resetHighlightColorBtn" class="btn btn-ghost" type="button">Сбросить</button>
+            </div>
+            <div id="highlightColorStatus" class="settings-status" aria-live="polite"></div>
+            <div class="helper-text">Цвет применяется и к подсветке ответов, и к подсветке найденных тестов.</div>
+
+            <div class="settings-title">Режим разработчика</div>
+            <label class="settings-switch-row" for="developerModeToggle">
+                <span>
+                    <strong>Показывать кнопки логов</strong>
+                    <span>Когда включено, в нужных вкладках будут видны кнопки скачивания логов.</span>
+                </span>
+                <input id="developerModeToggle" class="switch-input" type="checkbox">
+                <span class="switch-slider" aria-hidden="true"></span>
+            </label>
+            <div id="developerModeStatus" class="settings-status" aria-live="polite"></div>
+
+            <div class="settings-title">Промт</div>
+            <textarea id="userPromptInput" class="settings-prompt" placeholder="Например: Реши задание кратко и понятно. Сначала дай ответ, потом объяснение."></textarea>
+            <div class="actions">
+                <button id="savePromptBtn" class="btn btn-primary" type="button">Сохранить промт</button>
+                <button id="clearPromptBtn" class="btn btn-ghost" type="button">Очистить</button>
+            </div>
+            <div id="promptSettingsStatus" class="settings-status" aria-live="polite"></div>
+        </section>
+
+        <section class="hero">
+            <div class="hero-top">
+                <div class="brand-avatar" title="Иконка расширения">
+                    <img src="4.png" alt="Аватар God Game" class="brand-avatar-img">
+                </div>
+                <div class="brand-copy">
+                    <h1>God Game<span id="brandVersionText" class="brand-version"></span><span id="brandVersionStatus" class="brand-version-status is-loading" tabindex="0" aria-label="Статус версии"></span></h1>
+                    <p>
+                        <span class="brand-line">
+                            <span>By.x6uxoiAngelx</span>
+                            <span id="brandPing" class="brand-ping ping-loading">&gt;ping: ...&lt;</span>
+                        </span><br>
+                        #VibeCode<br>
+                        Tg: It_is_not_known<br>
+                        <a class="brand-link" href="https://github.com/6uxoi-Angel/GG---God-game-interneturok-VibeCode" target="_blank" rel="noopener noreferrer">GitHub: GG---God-game-interneturok-VibeCode</a>
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="tabs" aria-label="Режимы">
+            <button id="tabJitsi" class="tab-btn active" type="button"><span class="tab-emoji">&#128100;</span><span class="tab-label">Имя</span></button>
+            <button id="tabQuestion" class="tab-btn" type="button"><span class="tab-emoji">&#128203;</span><span class="tab-label">Копия</span></button>
+            <button id="tabGrades" class="tab-btn" type="button"><span class="tab-emoji">&#127937;</span><span class="tab-label">Оценки</span></button>
+            <button id="tabHighlight" class="tab-btn" type="button"><span class="tab-emoji">&#10024;</span><span class="tab-label">Ответы</span></button>
+            <button id="tabProfile" class="tab-btn" type="button"><span class="tab-emoji">&#129534;</span><span class="tab-label">Профиль</span></button>
+        </section>
+
+        <section id="panelJitsi" class="panel active">
+            <section class="card">
+                <div class="label">Активная вкладка (Не трогать если не знаешь зачем!)</div>
+                <div id="pageHost" class="host">Определяем...</div>
+
+                <div class="label hint">Ключи из URL (Не трогать если не знаешь зачем!)</div>
+                <div id="keysList" class="chip-list"></div>
+            </section>
+
+            <section class="card">
+                <div class="label">Имя пользователя</div>
+                <div id="currentName" class="current-name">Загрузка...</div>
+
+                <label for="newName" class="input-label">Новое имя</label>
+                <input type="text" id="newName" autocomplete="off" placeholder="Введите новое имя">
+
+                <div class="actions">
+                    <button id="changeBtn" class="btn btn-primary">Применить имя</button>
+                    <button id="injectBtn" class="btn btn-ghost">Обновить связь</button>
+                </div>
+
+                <div id="status" class="status" aria-live="polite"></div>
+            </section>
+
+            <section class="card">
+                <div class="row">
+                    <div class="label">История имён</div>
+                    <button id="clearHistoryBtn" class="btn btn-small">Очистить</button>
+                </div>
+                <div id="historyList" class="history-list"></div>
+            </section>
+
+        </section>
+
+        <section id="panelQuestion" class="panel">
+            <section class="card">
+                <div class="label">Сканирование вопросов</div>
+                <div class="helper-text">Сканируй страницу, включай автокопирование или копируй текущий тест/обычное задание вручную.</div>
+
+                <div class="actions actions-single">
+                    <button id="scanBtn" class="btn btn-primary">Сканировать</button>
+                </div>
+
+                <div id="scanProgress" class="scan-progress">Сканирование не запущено</div>
+
+                <div class="actions">
+                    <button id="autoCopyBtn" class="btn btn-primary">Включить автокопирование (Не трогать если не знаешь зачем!)</button>
+                    <button id="copyNowBtn" class="btn btn-ghost">Скопировать сейчас</button>
+                </div>
+                <div class="actions actions-single">
+                    <button id="autoPromptBtn" class="btn btn-primary">Скопировать с автопромтом</button>
+                </div>
+
+
+
+                <div class="actions actions-single dev-only">
+                    <button id="downloadQuestionLogsBtn" class="btn btn-ghost">&#129534; Скачать логи сканера .txt</button>
+                </div>
+
+                <div id="questionStatus" class="status" aria-live="polite"></div>
+            </section>
+
+            <section class="card">
+                <div class="row">
+                    <div class="label">Последний результат</div>
+                    <button id="clearCopiedBtn" class="btn btn-small">Очистить</button>
+                </div>
+                <textarea id="copiedQuestion" class="copy-preview" readonly placeholder="Здесь появится текст последнего скопированного вопроса или задания."></textarea>
+            </section>
+        </section>
+
+        <section id="panelGrades" class="panel">
+            <section class="card">
+                <div class="label">Расчёт итоговых оценок</div>
+                <div class="helper-text">Открой страницу журнала и нажми кнопку. Итоговая оценка считается по среднему баллу.
+                    <br>Количество оценок за четверть можно просмотреть 
+                    <a href="https://interneturok.ru/h/info/min_DZ?id=435" target="_blank" rel="noopener noreferrer">тут</a>
+                </div>
+                <div class="actions actions-single">
+                    <button id="refreshGradesBtn" class="btn btn-primary">Посчитать оценки</button>
+                </div>
+                <div id="gradesSummary" class="grade-summary">Оценки ещё не считались</div>
+                <div id="gradesStatus" class="status" aria-live="polite"></div>
+            </section>
+
+            <section class="card">
+                <div class="label">Список предметов</div>
+                <div id="gradesList" class="grade-list">
+                    <div class="empty">Откройте журнал и нажмите «Посчитать оценки»</div>
+                </div>
+            </section>
+        </section>
+
+        <section id="panelHighlight" class="panel">
+            <section class="card">
+                <div class="label">Ответ</div>
+                <div class="helper-text">Вставьте сюда ответ в формате «Задание N / Тип / Ответ / Пояснение».</div>
+                <textarea id="highlightInput" class="copy-preview qwen-input" placeholder="Вставьте ответ модели..."></textarea>
+                <div class="actions">
+                    <button id="applyHighlightBtn" class="btn btn-primary">Подсветить на странице</button>
+                    <button id="clearPageHighlightBtn" class="btn btn-ghost">Убрать подсветку</button>
+                </div>
+                <div class="actions actions-single">
+                    <button id="clearHighlightBtn" class="btn btn-ghost">Очистить текст</button>
+                </div>
+                <div class="highlight-tip">Подсветка будет применена прямо в открытой вкладке с тестом.</div>
+                <div id="highlightStatus" class="status" aria-live="polite"></div>
+            </section>
+        </section>
+
+        <section id="panelProfile" class="panel">
+            <section class="profile-subtabs" aria-label="Профиль">
+                <button id="profileSubtabMe" class="profile-subtab-btn active" type="button">Я</button>
+                <button id="profileSubtabTests" class="profile-subtab-btn" type="button">Тесты</button>
+            </section>
+
+            <section id="profilePanelMe" class="profile-subpanel active">
+                <section class="card">
+                    <div class="label">Профиль · Я</div>
+                    <div class="helper-text">Данные берутся с открытой страницы InternetUrok: имя — из боковой панели, класс — из фильтра журнала. После успешного чтения данные сохраняются и показываются из локального хранилища.</div>
+                    <div class="profile-info-list">
+                        <div class="profile-info-row">
+                            <div class="profile-info-key">Имя</div>
+                            <div id="profileNameValue" class="profile-info-value">Не сохранено</div>
+                        </div>
+                        <div class="profile-info-row">
+                            <div class="profile-info-key">Класс</div>
+                            <div id="profileClassValue" class="profile-info-value">Не сохранено</div>
+                        </div>
+                        <div class="profile-info-row">
+                            <div class="profile-info-key">Статус</div>
+                            <div id="profileManifestStatusValue" class="profile-info-value">Dev</div>
+                        </div>
+                    </div>
+                    <div id="testsSummary" class="grade-summary">Проверено ДЗ: 0. Тестов: 0. Ошибок загрузки: 0. Пропущено с оценкой: 0.</div>
+                    <div id="profileInfoStatus" class="status" aria-live="polite"></div>
+                </section>
+            </section>
+
+            <section id="profilePanelTests" class="profile-subpanel">
+                <section class="card">
+                    <div class="label">Профиль · Тесты</div>
+                    <div class="helper-text">Сохранённые тесты видны на любом сайте. Новое сканирование запускай на странице журнала InternetUrok.</div>
+                    <div class="actions actions-single">
+                        <button id="findTestsBtn" class="btn btn-primary">Найти тесты</button>
+                    </div>
+                    <div class="actions">
+                        <button id="applyTestsHighlightBtn" class="btn btn-primary">Подсветить тесты</button>
+                        <button id="clearTestsHighlightBtn" class="btn btn-ghost">Убрать подсветку</button>
+                    </div>
+                    <div class="actions">
+                        <button id="copyTestsShareBtn" class="btn btn-primary">Скопировать список</button>
+                        <button id="downloadTestsShareBtn" class="btn btn-ghost">Скачать список .txt</button>
+                    </div>
+                    <div class="actions actions-single">
+                        <button id="importTestsShareBtn" class="btn btn-primary">Загрузить чужой список .txt</button>
+                        <input id="importTestsShareInput" type="file" accept=".txt,text/plain" hidden>
+                    </div>
+                    <div class="actions actions-single dev-only">
+                        <button id="downloadTestsLogsBtn" class="btn btn-ghost">&#129534; Скачать логи поиска тестов .txt</button>
+                    </div>
+                    <div class="label label-inline">Вид списка тестов</div>
+                    <div class="mode-grid tests-view-grid">
+                        <button id="testsViewModernBtn" class="mode-choice active" type="button" data-tests-view-choice="modern">
+                            <strong>Новый</strong>
+                            <span>Переработанные карточки с акцентами и компактной мета-информацией.</span>
+                        </button>
+                        <button id="testsViewClassicBtn" class="mode-choice" type="button" data-tests-view-choice="classic">
+                            <strong>Старый</strong>
+                            <span>Классическое отображение как было раньше.</span>
+                        </button>
+                    </div>
+                    <div id="testsStatus" class="status" aria-live="polite"></div>
+                </section>
+
+                <section class="card">
+                    <div class="label">Найденные тесты (по четвертям)</div>
+                    <div id="testsList" class="test-list">
+                        <div class="empty">Список пуст. Откройте журнал для сканирования или загрузите .txt со списком тестов.</div>
+                    </div>
+                </section>
+            </section>
+        </section>
+    </main>
+
+    <script src="popup/core/BaseExtensionController.js"></script>
+    <script src="popup/controllers/features/PopupFeatureBase.js"></script>
+    <script src="popup/controllers/features/PopupQuestionFeature.js"></script>
+    <script src="popup/controllers/features/PopupGradesFeature.js"></script>
+    <script src="popup/controllers/features/PopupAppearanceCatalog.js"></script>
+    <script src="popup/controllers/features/PopupSettingsFeature.js"></script>
+    <script src="popup/controllers/features/PopupTabsFeature.js"></script>
+    <script src="popup/controllers/features/PopupBrandFeature.js"></script>
+    <script src="popup/controllers/features/PopupProfileFeature.js"></script>
+    <script src="popup/controllers/features/PopupAnswerFeature.js"></script>
+    <script src="popup/controllers/features/PopupBridgeFeature.js"></script>
+    <script src="popup/controllers/features/PopupTestsFeature.js"></script>
+    <script src="popup/controllers/features/PopupUtilityFeature.js"></script>
+    <script src="popup/controllers/LegacyPopupController.js"></script>
+    <script src="popup.js"></script>
+</body>
+</html>
+
+
+
+

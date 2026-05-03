@@ -1,5 +1,7 @@
 # Changelog: `1.0` -> `1.1`
 
+## Установка https://youtu.be/g5v9Vjg-Rgw
+
 ## Added
 
 - Добавлен `service-worker.js` для регистрации usage ping и обновления счетчика запусков.

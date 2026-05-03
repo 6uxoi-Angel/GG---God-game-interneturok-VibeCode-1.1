@@ -1,11 +1,4 @@
-# Changelog: `1.0` -> 1.1
-
-Дата: `2026-05-03`
-
-Сравнение выполнено между:
-
-- Старая версия: `GG---God-game-interneturok-VibeCode-1.0/`
-- Текущая версия: корень проекта `./`
+# Changelog: `1.0` -> `1.1`
 
 ## Added
 
@@ -24,7 +17,7 @@
 - `content.js` из монолита стал загрузчиком контроллера.
 - Основная логика вынесена в feature-модули: `popup/controllers/features/` (`12` файлов) и `content/controllers/features/` (`7` файлов).
 - Обновлен `manifest.json`:
-- `version`: `1.0` -> 1.1
+- `version`: `1.0` -> `1.1`
 - Добавлены permissions: `unlimitedStorage`, `tabs`, `webNavigation`.
 - Добавлены `background.service_worker`, `host_permissions`, `optional_host_permissions`.
 - `content_scripts` изменены с одного `content.js` на цепочку модулей + `content.js`, включены `all_frames` и `match_about_blank`.

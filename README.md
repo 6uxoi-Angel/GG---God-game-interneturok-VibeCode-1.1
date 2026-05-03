@@ -26,23 +26,4 @@
 
 - Убрана старая аудио-функция в popup (`playAudioBtn`, `audioStatus`).
 - Убраны фиксированные кнопки тем `themeLightBtn` и `themeDarkBtn` (заменены на динамический список тем).
-- `README.md` из старой сборки отсутствует в текущем корне версии.
-
-## Unchanged
-
-- `injected.js` не изменился (хеш одинаковый).
-- Иконки `1.png`, `2.png`, `3.png`, `4.png` не изменились (хеши одинаковые).
-
-## Technical Summary
-
-- `popup.js`: `1094` строк -> `148` строк.
-- `content.js`: `1098` строк -> `13` строк.
-- `popup.html`: `762` строки -> `292` строки.
-- По функционалу контент-скрипта добавлено `7` новых message-action:
-- `pingSite`
-- `highlightAnswersOnPage`
-- `clearHighlightedAnswersOnPage`
-- `highlightFoundTests`
-- `clearFoundTestsHighlight`
-- `findJournalTests`
-- `getInternetUrokProfileInfo`
+- `README.md` из старой сборки отсутствует в текущем корне версии

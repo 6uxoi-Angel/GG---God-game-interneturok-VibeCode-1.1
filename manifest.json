@@ -1,0 +1,76 @@
+﻿{
+    "manifest_version":  3,
+    "name":  "God game",
+    "version":  "1.2",
+    "description":  "God Game",
+    "permissions":  [
+                        "activeTab",
+                        "scripting",
+                        "storage",
+                        "clipboardWrite",
+                        "microphone",
+                        "unlimitedStorage",
+                        "tabs",
+                        "webNavigation"
+                    ],
+    "action":  {
+                   "default_title":  "God game",
+                   "default_popup":  "popup.html",
+                   "default_icon":  {
+                                        "16":  "1.png",
+                                        "48":  "2.png",
+                                        "128":  "3.png"
+                                    }
+               },
+    "background":  {
+                       "service_worker":  "service-worker.js"
+                   },
+    "content_scripts":  [
+                            {
+                                "matches":  [
+                                                "\u003call_urls\u003e"
+                                            ],
+                                "js":  [
+                                           "content/core/BaseContentController.js",
+                                           "content/controllers/features/ContentFeatureBase.js",
+                                           "content/controllers/features/ContentBridgeLogFeature.js",
+                                           "content/controllers/features/ContentHighlightFeature.js",
+                                           "content/controllers/features/ContentQuestionFeature.js",
+                                           "content/controllers/features/ContentJournalFeature.js",
+                                           "content/controllers/features/ContentScannerFeature.js",
+                                           "content/controllers/features/ContentProfileFeature.js",
+                                           "content/controllers/LegacyContentController.js",
+                                           "content.js"
+                                       ],
+                                "all_frames":  true,
+                                "match_about_blank":  true
+                            }
+                        ],
+    "web_accessible_resources":  [
+                                     {
+                                         "resources":  [
+                                                           "injected.js",
+                                                           "4.png"
+                                                       ],
+                                         "matches":  [
+                                                         "\u003call_urls\u003e"
+                                                     ]
+                                     }
+                                 ],
+    "icons":  {
+                  "16":  "1.png",
+                  "48":  "2.png",
+                  "64":  "4.png",
+                  "128":  "3.png"
+              },
+    "status":  "default",
+    "host_permissions":  [
+                             "\u003call_urls\u003e"
+                         ],
+    "optional_host_permissions":  [
+                                      "https://class.interneturok.ru/*",
+                                      "https://*.interneturok.ru/*",
+                                      "http://class.interneturok.ru/*",
+                                      "http://*.interneturok.ru/*"
+                                  ]
+}
